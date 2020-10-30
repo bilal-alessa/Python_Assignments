@@ -3,8 +3,8 @@ class LivingThings(ABC):
     def Habitat(self, area):
         print('And the habitat in which these species lives is a {}'.format(area))
         
-        @abstractmethod
-        def specie(self, kind):
+    @abstractmethod
+    def specie(self, kind):
             pass
     
 class Plant(LivingThings):
