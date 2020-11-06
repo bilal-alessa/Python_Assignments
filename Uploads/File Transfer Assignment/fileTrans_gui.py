@@ -15,7 +15,7 @@ def load_gui(self):
     #Buttons Declaration
     self.b1 = tk.Button(self.master, text = 'Set Root Directory', command = lambda: fileTrans_func.setSource(self))
     self.b2 = tk.Button(self.master, text = 'Set Backup Folder', command = lambda: fileTrans_func.setDestination(self))
-    self.b3 = tk.Button(self.master, text = 'Manual Execute', command = lambda: fileTrans_func.manualStart())
+    self.b3 = tk.Button(self.master, text = 'Manual Execute', command = fileTrans_func.manualStart)
     self.b4 = tk.Button(self.master, text = 'AUTO Execute Daily', command = lambda : fileTrans_func.start())
     
     #Buttons Assigning Variables

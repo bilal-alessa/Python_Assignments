@@ -62,21 +62,44 @@ def copyFiles():
             print('Not moved' + i)
             pass
 
-# finds last modified time and compares each file in folders. Copies and deletes if different.
+
+
 def checkTime():
-    print('starting checktime')
+    global source
     fileList = getList()
     for i in fileList:
-        mainFiles = os.path.getmtime(source+ i)
-        backupFiles = os.path.getmtime(destination+ i)
-        if mainFiles == backupFiles:
-            print('File already exists in Backup Directory NO CHANGE!...')
-            pass
+        x = int(os.path.getmtime(source+i))
+        currentTime= int(time.time())
+        getHours = int((currentTime - x) / 3600)
+        if getHours > 24:
+            try:
+                shutil.copy(source+i, destination)
+                print('File Backuping Up...')
+            except:
+                print('File Exists Overwriting Backup...')
+                os.remove(destination+ i)
+                shutil.copyfile(source+i, destination)
+                print('Overwrite Complete')
         else:
-            #os.remove(destination+ i)
-            shutil.copy(source+i, destination)
-            print(i + ' Not same modified version, will backup...')
-        print('Next Backup on {}'.format(nextBackup))
+            pass
+        print('DONE')
+
+
+### finds last modified time and compares each file in folders. Copies and deletes if different.
+##def checkTime():
+##    print('starting checktime')
+##    fileList = getList()
+##    for i in fileList:
+##        mainFiles = os.path.getmtime(source+ i)
+##        backupFiles = os.path.getmtime(destination+ i)
+##        if mainFiles == backupFiles:
+##            print('File already exists in Backup Directory NO CHANGE!...')
+##            pass
+##        else:
+##            #os.remove(destination+ i)
+##            shutil.copy(source+i, destination)
+##            print(i + ' Not same modified version, will backup...')
+##        print('Next Backup on {}'.format(nextBackup))
 
 
 
@@ -85,7 +108,9 @@ def checkTime():
 #avoids the loop and allows the user to press button to initiate. Cant run if 24 loop is active.
 def manualStart():
     copyFiles()
+    print('started')
     checkTime()
+    
 
 
 # this is to start the loop during the 24 hour session and repeats
