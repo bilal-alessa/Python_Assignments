@@ -49,31 +49,16 @@ def setDestination(self):
     destination = self.dirBackup + '/'
     print(destination)
 
-
-def copyFiles():
-    fileList = getList()
-    backupList = getDestination()
-    print(fileList)
-    for i in fileList:
-        if i not in backupList:
-            shutil.copy(source+i, destination)
-        else:
-            print("Element already in the list")
-
-
-
-
-
-
+##
 ##def copyFiles():
-##    print('starting copyfiles')
 ##    fileList = getList()
 ##    backupList = getDestination()
 ##    print(fileList)
 ##    for i in fileList:
-##        if i != backupList:
+##        if i not in backupList:
 ##            shutil.copy(source+i, destination)
-
+##        else:
+##            print("Element already in the list")
 
 
 def checkTime():
@@ -119,9 +104,9 @@ def checkTime():
 
 #avoids the loop and allows the user to press button to initiate. Cant run if 24 loop is active.
 def manualStart():
-    copyFiles()
+    #copyFiles()
     print('started')
-    #checkTime()
+    checkTime()
     
 
 
@@ -153,4 +138,15 @@ def start():
 
 if __name__ == "__main__":
     pass
+
+
+##def copyFiles():
+##    print('starting copyfiles')
+##    fileList = getList()
+##    backupList = getDestination()
+##    print(fileList)
+##    for i in fileList:
+##        if i != backupList:
+##            shutil.copy(source+i, destination)
+
 
