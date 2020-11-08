@@ -33,7 +33,7 @@ def getDestination():
     global destination
     rootDir = destination
     filesBUP = os.listdir(destination)
-    return destination1
+    return filesBUP
 
 def setSource(self):
     self.dirName = tk.filedialog.askdirectory(initialdir = "/", title = "Select A Dir")
@@ -52,15 +52,11 @@ def setDestination(self):
 def copyFiles():
     print('starting copyfiles')
     fileList = getList()
+    backupList = getDestination()
     print(fileList)
     for i in fileList:
-        try:
-            print(fileList)
-            print(source+i, destination)
+        if i != backupList:
             shutil.copy(source+i, destination)
-        except:
-            print('Not moved' + i)
-            pass
 
 
 
@@ -71,14 +67,14 @@ def checkTime():
         x = int(os.path.getmtime(source+i))
         currentTime= int(time.time())
         getHours = int((currentTime - x) / 3600)
-        if getHours > 24:
+        if getHours < 24:
             try:
+                os.remove(destination+ i)
                 shutil.copy(source+i, destination)
                 print('File Backuping Up...')
             except:
                 print('File Exists Overwriting Backup...')
-                os.remove(destination+ i)
-                shutil.copyfile(source+i, destination)
+                shutil.copy(source+i, destination)
                 print('Overwrite Complete')
         else:
             pass
@@ -102,7 +98,7 @@ def checkTime():
 ##        print('Next Backup on {}'.format(nextBackup))
 
 
-
+    
 
 
 #avoids the loop and allows the user to press button to initiate. Cant run if 24 loop is active.
@@ -115,15 +111,19 @@ def manualStart():
 
 # this is to start the loop during the 24 hour session and repeats
 def start():
+    print('starting loop')
     global nextBackup
     backupLock = True
     while backupLock:
+        #print('waiting on loop...')
         #Call to global variable
         if nextBackup == datetime.date.today():
             backupLock = False
             break
         else:
-            pass
+            print(nextBackup, datetime.date.today())
+            #print('still waiting on loop...')
+            continue
     print('Starting Backup')
     nextBackup = nextBackup + datetime.timedelta(days=1)
     # Lock it back up to prevent continual backup
