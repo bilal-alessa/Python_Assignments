@@ -1,0 +1,28 @@
+Once you have a virtualenv setup -- virtualenv (projectname)
+Open up directory that containts the project
+activate the vituralenv (scripts\activate.bat)
+install pip install django - may depend on version pip install django==2.0.7
+create a src directory inside folder named your project
+cd into src folder
+django-admin startproject mainapp(this is app name)
+locate into mainapp(app name folder)
+python manage.py runserver
+deactivate crtc+c twice
+deactivate vitualenv once done
+
+
+-adding an admin page-
+shutdown server
+python manage.py migrate (creates the proper files for administration)
+python manage.py createsuperuser
+
+-creating a app-
+
+close(ctrl + c twice)
+python manage.py startapp (anyname here)
+then files should be created in the directory
+after editing and adding models
+python manage.py makemigration
+python manage.py migrate
+python manage.py runserver
+

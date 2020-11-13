@@ -49,27 +49,20 @@ def setDestination(self):
     destination = self.dirBackup + '/'
     print(destination)
 
-##
-##def copyFiles():
-##    fileList = getList()
-##    backupList = getDestination()
-##    print(fileList)
-##    for i in fileList:
-##        if i not in backupList:
-##            shutil.copy(source+i, destination)
-##        else:
-##            print("Element already in the list")
-
 
 def checkTime():
-    global source
-    fileList = getList()
-    for i in fileList:
-        x = int(os.path.getmtime(source+i))
+    for i in source:
+        fileList=files
+        print('task 1')
+        x = int(os.path.getmtime(fileList+i))
+        print('task 2')
         currentTime= int(time.time())
+        print('task 3')
         getHours = int((currentTime - x) / 3600)
+        print('task 4')
         if getHours < 24:
             try:
+                print('task 5')
                 os.remove(destination+ i)
                 shutil.copy(source+i, destination)
                 print('File Backuping Up...')
@@ -82,37 +75,15 @@ def checkTime():
         print('DONE')
 
 
-### finds last modified time and compares each file in folders. Copies and deletes if different.
-##def checkTime():
-##    print('starting checktime')
-##    fileList = getList()
-##    for i in fileList:
-##        mainFiles = os.path.getmtime(source+ i)
-##        backupFiles = os.path.getmtime(destination+ i)
-##        if mainFiles == backupFiles:
-##            print('File already exists in Backup Directory NO CHANGE!...')
-##            pass
-##        else:
-##            #os.remove(destination+ i)
-##            shutil.copy(source+i, destination)
-##            print(i + ' Not same modified version, will backup...')
-##        print('Next Backup on {}'.format(nextBackup))
-
-
-    
-
-
 #avoids the loop and allows the user to press button to initiate. Cant run if 24 loop is active.
 def manualStart():
     #copyFiles()
-    print('started')
     checkTime()
     
 
 
 # this is to start the loop during the 24 hour session and repeats
 def start():
-    print('starting loop')
     global nextBackup
     backupLock = True
     while backupLock:
@@ -125,28 +96,13 @@ def start():
             print(nextBackup, datetime.date.today())
             #print('still waiting on loop...')
             continue
-    print('Starting Backup')
     nextBackup = nextBackup + datetime.timedelta(days=1)
     # Lock it back up to prevent continual backup
     backupLock= True
-    print('completed')
-    copyFiles()
-    print('start checktime')
     checkTime()
     start()
 
 
 if __name__ == "__main__":
     pass
-
-
-##def copyFiles():
-##    print('starting copyfiles')
-##    fileList = getList()
-##    backupList = getDestination()
-##    print(fileList)
-##    for i in fileList:
-##        if i != backupList:
-##            shutil.copy(source+i, destination)
-
 
